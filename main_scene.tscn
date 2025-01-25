@@ -17,7 +17,7 @@ zoom = Vector2(0.7, 0.7)
 [node name="Table" type="Node2D" parent="."]
 position = Vector2(0, -134)
 
-[node name="Ball" parent="Table" instance=ExtResource("1_xsy2t")]
+[node name="Stone" parent="Table" instance=ExtResource("1_xsy2t")]
 
 [node name="Paws" parent="." instance=ExtResource("2_fy05x")]
 position = Vector2(0, 779)

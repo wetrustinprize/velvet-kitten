@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cribo2sn025ul"]
+
+[ext_resource type="LabelSettings" uid="uid://cqp6yfhd0qll3" path="res://ui/style_reason/label_settings.tres" id="1_hspx3"]
+
+[node name="Style Reason" type="HBoxContainer"]
+
+[node name="Reason" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Explosion"
+label_settings = ExtResource("1_hspx3")
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+text = "500 pts"
+label_settings = ExtResource("1_hspx3")
+horizontal_alignment = 2

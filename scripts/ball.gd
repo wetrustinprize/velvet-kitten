@@ -64,13 +64,13 @@ func check_neighbors() -> void:
 		_:
 			handle_default()
 
-
 func handle_default() -> void:
 	var match_line = get_match_line()
 	var match_total = match_line.size()
 
 	if match_line.size() > 2:
 		for ball in match_line:
+			Game.balls.erase(ball)
 			ball.queue_free()
 
 	match match_total:

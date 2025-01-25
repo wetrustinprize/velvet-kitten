@@ -49,6 +49,7 @@ func hit() -> void:
 	Game.add_multiplier(0.05, "hit")
 
 	var new_ball = ball_scene.instantiate()
+	Game.balls.append(new_ball)
 	var table: Node2D = get_parent().get_node("Table")
 
 	table.add_child(new_ball)

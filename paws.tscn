@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://fexlo01o2syd"]
+[gd_scene load_steps=5 format=3 uid="uid://fexlo01o2syd"]
 
 [ext_resource type="Texture2D" uid="uid://b37sjauf7ciug" path="res://graphics/placeholder/paws.jpg" id="1_5aru4"]
 [ext_resource type="Script" path="res://scripts/paws.gd" id="1_to8e1"]
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="2_75gpt"]
+
+[sub_resource type="Gradient" id="Gradient_bd8i2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Paws" type="Node2D"]
 script = ExtResource("1_to8e1")
@@ -26,3 +29,5 @@ collision_mask = 0
 
 [node name="Line" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
+width = 2.0
+gradient = SubResource("Gradient_bd8i2")

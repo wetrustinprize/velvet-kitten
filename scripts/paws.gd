@@ -1,4 +1,5 @@
 extends Node2D
+class_name Paws
 
 @export var paw_speed: float = 150.0
 @export var max_rotation_deg: float = 45.0
@@ -25,10 +26,6 @@ func _ready() -> void:
 	ball.update_info(ball_info)
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit()
-
 	if event is InputEventMouseMotion:
 		var x_diff = event.relative.x
 
@@ -50,13 +47,15 @@ func hit() -> void:
 		return
 
 	var new_ball = ball_scene.instantiate()
-	get_tree().root.add_child(new_ball)
+	var table: Node2D = get_parent().get_node("Table")
+
+	table.add_child(new_ball)
 	new_ball.update_info(ball_info)
 
 	var pos = result.collider.global_position
 	pos += result.hit_normal.normalized() * 110
 
-	new_ball.position = pos
+	new_ball.position = table.to_local(pos)
 	Game.balls.append(new_ball)
 	new_ball.check_neighbors()
 

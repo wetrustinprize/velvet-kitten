@@ -43,10 +43,7 @@ func hit() -> void:
 	var result = calculate_hit(raycast_origin.position, initial_target_position)
 
 	if result.is_empty() or result.collider is not Ball:
-		Game.reset_multiplier("miss")
 		return
-
-	Game.add_multiplier(0.05, "hit")
 
 	var new_ball = ball_scene.instantiate()
 	Game.balls.append(new_ball)

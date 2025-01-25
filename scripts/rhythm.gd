@@ -1,7 +1,11 @@
 extends Timer
 
+@export var buffer_time: float = 0.3
+
 @onready var table: Node2D = get_parent().get_node("Table")
 @onready var paws: Paws = get_parent().get_node("Paws")
+
+var can_hit: bool = false
 
 var beat: int = 1
 var tween_duration: float = 0.1
@@ -22,13 +26,29 @@ func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	else:
 		FmodServer.set_global_parameter_by_name("Phase", 3)
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index != 1 or not event.is_pressed():
+			return
+		
+		if not can_hit:
+			Game.reset_multiplier("miss")
+		else:
+			Game.add_multiplier(0.05, "hit")
+
+		paws.hit()
+
 func _on_timeout() -> void:
 	var inverse: bool = beat % 2 == 0
 	
 	if beat == 3:
 		beat = 0
-		paws.hit()
+		can_hit = false
 	else:
+		if beat == 2:
+			get_tree().create_timer(wait_time - buffer_time).timeout.connect(func(): can_hit = true)
+			pass
+
 		var tween: Tween = get_tree().create_tween()
 		var rot = table.rotation_degrees + 45 * (-1 if inverse else 1)
 		tween.tween_property(table, "rotation_degrees", rot, tween_duration).set_trans(Tween.TRANS_SPRING)

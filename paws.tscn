@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://fexlo01o2syd"]
+
+[ext_resource type="Texture2D" uid="uid://b37sjauf7ciug" path="res://graphics/placeholder/paws.jpg" id="1_5aru4"]
+[ext_resource type="Script" path="res://scripts/paws.gd" id="1_to8e1"]
+[ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="2_75gpt"]
+
+[node name="Paws" type="Node2D"]
+script = ExtResource("1_to8e1")
+
+[node name="RayCastOrigin" type="Node2D" parent="."]
+position = Vector2(0, -250)
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCastOrigin"]
+position = Vector2(0, 13)
+target_position = Vector2(0, -1000)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -91)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_5aru4")
+
+[node name="Ball" parent="." instance=ExtResource("2_75gpt")]
+position = Vector2(0, -181)
+
+[node name="Line" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3b2nlibw3spp"]
+
+[ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
+[ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opmb6"]
+size = Vector2(41, 1082)
+
+[node name="Main Scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Ball" parent="." instance=ExtResource("1_xsy2t")]
+position = Vector2(0, -134)
+
+[node name="Paws" parent="." instance=ExtResource("2_fy05x")]
+position = Vector2(0, 546)
+
+[node name="Walls" type="StaticBody2D" parent="." groups=["bounce"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-557, 0)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_opmb6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(557, 0)
+shape = SubResource("RectangleShape2D_opmb6")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -523)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_opmb6")

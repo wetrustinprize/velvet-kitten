@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://beh5rqjujuq1k"]
+
+[ext_resource type="Texture2D" uid="uid://ckrrt6vaaovua" path="res://graphics/placeholder/ball_basket.jpeg" id="1_j15lk"]
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_wpxwf"]
+
+[node name="Ball" type="CharacterBody2D"]
+script = ExtResource("1_wpxwf")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_j15lk")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+scale = Vector2(7, 7)
+build_mode = 1
+polygon = PackedVector2Array(4, -8, 9, 0, 4, 8, -4, 8, -9, 0, -4, -8)

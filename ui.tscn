@@ -11,13 +11,13 @@ func _ready() -> void:
 	Game.multiplier_changed.connect(update_multiplier)
 	Game.score_changed.connect(update_score)
 	
-	update_multiplier(Game.multiplier)
-	update_score(Game.score)
+	update_multiplier(Game.multiplier, \"\")
+	update_score(Game.score, \"\")
 	
-func update_multiplier(m: float):
+func update_multiplier(m: float, r: String):
 	multiplier.text = str(m).pad_decimals(2) + \"x\"
 	
-func update_score(s: int):
+func update_score(s: int, r: String):
 	points.text = str(s) + \" pts\"
 "
 

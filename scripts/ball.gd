@@ -75,11 +75,11 @@ func handle_default() -> void:
 
 	match match_total:
 		3:
-			Game.score += 300
-			Game.multiplier += 0.1
+			Game.add_points(300, "triplet")
+			Game.add_multiplier(0.1, "triplet")
 		4:
-			Game.score += 400
-			Game.multiplier += 0.2
+			Game.add_points(400, "quadruplet")
+			Game.add_multiplier(0.2, "quadruplet")
 		5:
-			Game.score += 700
-			Game.multiplier += 0.3
+			Game.add_points(700, "quintuplet")
+			Game.add_multiplier(0.3, "quintuplet")

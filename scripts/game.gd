@@ -1,7 +1,7 @@
 extends Node
 
-signal multiplier_changed(multiplier: float, reason: String)
-signal score_changed(score: int, reason: String)
+signal multiplier_changed(multiplier: float, info: Dictionary)
+signal score_changed(score: int, info: Dictionary)
 
 var multiplier: float = 1.0
 var score: int = 0
@@ -9,16 +9,17 @@ var score: int = 0
 var balls: Array[Ball] = []
 
 func reset_multiplier(reason: String) -> void:
+	var old_multiplier = multiplier
 	multiplier = 1.0
-	multiplier_changed.emit(multiplier, reason)
+	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = (-old_multiplier + 1.0) })
 
 func add_multiplier(value: float, reason: String) -> void:
 	multiplier += value
-	multiplier_changed.emit(multiplier, reason)
+	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = value })
 
 func add_points(points: int, reason: String) -> void:
 	score += points * multiplier
-	score_changed.emit(score, reason)
+	score_changed.emit(score, { "reason" = reason, "sum" = points })
 
 func _process(_delta: float) -> void:
 	check_flying_balls()

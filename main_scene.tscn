@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=6 format=3 uid="uid://d3b2nlibw3spp"]
 
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
-[ext_resource type="Texture2D" uid="uid://d06athtcuje3a" path="res://graphics/placeholder/spin.jpg" id="3_xasxa"]
 [ext_resource type="Script" path="res://scripts/rhythm.gd" id="4_1ox6f"]
 [ext_resource type="PackedScene" uid="uid://bygxofx6k28vs" path="res://ui.tscn" id="5_08jql"]
 
@@ -38,11 +37,6 @@ shape = SubResource("RectangleShape2D_opmb6")
 position = Vector2(0, -523)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_opmb6")
-
-[node name="Spin" type="Sprite2D" parent="."]
-position = Vector2(789, 391)
-scale = Vector2(0.215, 0.215)
-texture = ExtResource("3_xasxa")
 
 [node name="Rhythm" type="Timer" parent="."]
 wait_time = 0.429

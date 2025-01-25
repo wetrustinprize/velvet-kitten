@@ -12,7 +12,7 @@ func _ready() -> void:
 
 	Game.multiplier_changed.connect(handle_multiplier_changed)
 
-func handle_multiplier_changed(multiplier: float, _reason: String) -> void:
+func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	if multiplier < 1.99:
 		FmodServer.set_global_parameter_by_name("Phase", 0)
 	elif multiplier < 2.99:

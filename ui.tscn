@@ -1,27 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bygxofx6k28vs"]
 
+[ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="1_si5cj"]
-
-[sub_resource type="GDScript" id="GDScript_csru5"]
-resource_name = "UI Update"
-script/source = "extends Control
-
-@onready var multiplier: Label = $Multiplier
-@onready var points: Label = $Points
-
-func _ready() -> void:
-	Game.multiplier_changed.connect(update_multiplier)
-	Game.score_changed.connect(update_score)
-	
-	update_multiplier(Game.multiplier, \"\")
-	update_score(Game.score, \"\")
-	
-func update_multiplier(m: float, r: String):
-	multiplier.text = str(m).pad_decimals(2) + \"x\"
-	
-func update_score(s: int, r: String):
-	points.text = str(s) + \" pts\"
-"
 
 [sub_resource type="LabelSettings" id="LabelSettings_6avhg"]
 font_size = 111
@@ -41,7 +21,7 @@ grow_vertical = 2
 pivot_offset = Vector2(1920, 1080)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource("GDScript_csru5")
+script = ExtResource("1_ceq3d")
 
 [node name="Points" type="Label" parent="UI"]
 layout_mode = 1

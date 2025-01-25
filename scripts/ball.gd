@@ -12,18 +12,12 @@ func _ready() -> void:
 func update_info(new_info: BallInfo) -> void:
 	info = new_info
 
-	# HACK: Just changing the colors
 	match info.type:
 		BallInfo.TYPE.BLACK:
 			sprite.modulate = Color.BLACK
-		BallInfo.TYPE.GREEN:
-			sprite.modulate = Color.GREEN
-		BallInfo.TYPE.YELLOW:
-			sprite.modulate = Color.YELLOW
-		BallInfo.TYPE.PURPLE:
-			sprite.modulate = Color.PURPLE
-		BallInfo.TYPE.BLUE:
-			sprite.modulate = Color.BLUE
+		_:
+			sprite.modulate = Color.WHITE
+			sprite.texture = load("res://graphics/outer_ball/%s.png" % info.type)
 
 func get_neighbors() -> Array[Ball]:
 	shape_cast.force_shapecast_update()
@@ -73,7 +67,19 @@ func check_neighbors() -> void:
 
 func handle_default() -> void:
 	var match_line = get_match_line()
+	var match_total = match_line.size()
 
 	if match_line.size() > 2:
 		for ball in match_line:
 			ball.queue_free()
+
+	match match_total:
+		3:
+			Game.score += 300
+			Game.multiplier += 0.1
+		4:
+			Game.score += 400
+			Game.multiplier += 0.2
+		5:
+			Game.score += 700
+			Game.multiplier += 0.3

@@ -7,6 +7,7 @@ enum TYPE {
 	YELLOW,
 	PURPLE,
 	BLUE,
+	RED,
 }
 
 @export var type: TYPE = TYPE.BLACK

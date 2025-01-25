@@ -42,9 +42,11 @@ func _process(delta: float) -> void:
 func hit() -> void:
 	var result = calculate_hit(raycast_origin.position, initial_target_position)
 
-	if result.is_empty():
-		print("Miss!")
+	if result.is_empty() or result.collider is not Ball:
+		Game.multiplier = 1.0
 		return
+
+	Game.multiplier += 0.05
 
 	var new_ball = ball_scene.instantiate()
 	var table: Node2D = get_parent().get_node("Table")
@@ -56,7 +58,6 @@ func hit() -> void:
 	pos += result.hit_normal.normalized() * 110
 
 	new_ball.position = table.to_local(pos)
-	Game.balls.append(new_ball)
 	new_ball.check_neighbors()
 
 	ball_info = BallInfo.random()
@@ -69,7 +70,7 @@ func calculate_hit(new_position: Vector2, target_position: Vector2, current_boun
 	raycast.position = new_position
 	raycast.target_position = target_position
 	raycast.force_raycast_update()
-    
+	
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()
 

@@ -3,34 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
 [ext_resource type="Texture2D" uid="uid://d06athtcuje3a" path="res://graphics/placeholder/spin.jpg" id="3_xasxa"]
-[ext_resource type="AudioStream" uid="uid://5r1es64iff5w" path="res://music/placeholder/placeholder.wav" id="4_m2vx3"]
+[ext_resource type="Script" path="res://scripts/rhythm.gd" id="4_1ox6f"]
+[ext_resource type="PackedScene" uid="uid://bygxofx6k28vs" path="res://ui.tscn" id="5_08jql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opmb6"]
 size = Vector2(41, 1082)
 
-[sub_resource type="GDScript" id="GDScript_4blw0"]
-script/source = "extends Timer
-
-@onready var table: Node2D = get_parent().get_node(\"Table\")
-@onready var paws: Paws = get_parent().get_node(\"Paws\")
-
-var beat: int = 1
-
-func _on_timeout() -> void:
-	var inverse: bool = beat % 2 == 0
-	
-	if beat == 3:
-		beat = 0
-		paws.hit()
-	else:
-		table.rotate(deg_to_rad(45 * (-1 if inverse else 1)))
-		beat += 1 
-		
-"
-
 [node name="Main Scene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
 
 [node name="Table" type="Node2D" parent="."]
 position = Vector2(0, -134)
@@ -38,20 +20,21 @@ position = Vector2(0, -134)
 [node name="Ball" parent="Table" instance=ExtResource("1_xsy2t")]
 
 [node name="Paws" parent="." instance=ExtResource("2_fy05x")]
-position = Vector2(0, 546)
+position = Vector2(0, 779)
 
 [node name="Walls" type="StaticBody2D" parent="." groups=["bounce"]]
+position = Vector2(10, -134)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+[node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-557, 0)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_opmb6")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+[node name="Right" type="CollisionShape2D" parent="Walls"]
 position = Vector2(557, 0)
 shape = SubResource("RectangleShape2D_opmb6")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+[node name="Top" type="CollisionShape2D" parent="Walls"]
 position = Vector2(0, -523)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_opmb6")
@@ -61,13 +44,19 @@ position = Vector2(789, 391)
 scale = Vector2(0.215, 0.215)
 texture = ExtResource("3_xasxa")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Rhythm" type="Timer" parent="."]
 wait_time = 0.429
 autostart = true
-script = SubResource("GDScript_4blw0")
+script = ExtResource("4_1ox6f")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_m2vx3")
+[node name="Music" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/Music"
+event_guid = "{c05a91cf-19a9-4df0-a950-173a277d6574}"
 autoplay = true
 
-[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
+[node name="BankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank"]
+
+[node name="UI" parent="." instance=ExtResource("5_08jql")]
+
+[connection signal="timeout" from="Rhythm" to="Rhythm" method="_on_timeout"]

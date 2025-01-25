@@ -5,17 +5,24 @@ extends Node2D
 @export var raycast_max_bounces: int = 3
 @export var raycast_max_distance: float = 2000.0
 
+@onready var ball: Ball = $Ball
 @onready var line: Line2D = $Line
 @onready var raycast_origin: Node2D = $RayCastOrigin
 @onready var raycast: RayCast2D = $RayCastOrigin/RayCast2D
 @onready var initial_target_position: Vector2 = Vector2.ZERO
 @onready var ball_scene: PackedScene = preload("res://ball.tscn")
 
+@onready var ball_info: BallInfo = BallInfo.random()
+
 var mouse_sensitivity: float = 0.001
 var desired_rotation: float = 0.0
 
 func _ready() -> void:
 	initial_target_position = Vector2(0, -raycast_max_distance)
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	ball.update_info(ball_info)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -44,13 +51,17 @@ func hit() -> void:
 
 	var new_ball = ball_scene.instantiate()
 	get_tree().root.add_child(new_ball)
+	new_ball.update_info(ball_info)
 
 	var pos = result.collider.global_position
 	pos += result.hit_normal.normalized() * 110
 
 	new_ball.position = pos
+	Game.balls.append(new_ball)
+	new_ball.check_neighbors()
 
-	print(result.hit_normal)
+	ball_info = BallInfo.random()
+	ball.update_info(ball_info)
 
 func calculate_hit(new_position: Vector2, target_position: Vector2, current_bounces: int = 0) -> Dictionary:
 	if current_bounces >= raycast_max_bounces + 1:

@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://beh5rqjujuq1k"]
+[gd_scene load_steps=4 format=3 uid="uid://beh5rqjujuq1k"]
 
-[ext_resource type="Texture2D" uid="uid://ckrrt6vaaovua" path="res://graphics/placeholder/ball_basket.jpeg" id="1_j15lk"]
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_wpxwf"]
+[ext_resource type="Texture2D" uid="uid://ciehht7pnkl6m" path="res://graphics/placeholder/ball_basket.png" id="2_72nas"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ya6o"]
+radius = 100.0
 
 [node name="Ball" type="CharacterBody2D"]
 script = ExtResource("1_wpxwf")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_j15lk")
+texture = ExtResource("2_72nas")
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 scale = Vector2(16, 16)
 build_mode = 1
 polygon = PackedVector2Array(4, 0, 2, 3.46, -2, 3.46, -4, 0, -2, -3.46, 2, -3.46)
+
+[node name="ShapeCast" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_0ya6o")
+target_position = Vector2(0, 0)

@@ -45,9 +45,14 @@ func _input(event: InputEvent) -> void:
 			return
 		
 		if not can_hit:
+			var high_stake_game = Game.score > 10000
+
+			if high_stake_game:
+				Game.halve_countdown()
+
 			Game.reset_multiplier("miss")
 			var camera = get_viewport().get_camera_2d()
-			Shaker.shake_by_preset(miss_shake_preset, camera, 0.1)
+			Shaker.shake_by_preset(miss_shake_preset, camera, 0.1 if not high_stake_game else 0.20)
 			paws.update_ball_info(BallInfo.random())
 		else:
 			var ok = paws.hit()

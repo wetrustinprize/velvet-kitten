@@ -46,6 +46,10 @@ func _process(delta: float) -> void:
 			clock_enabled = false
 			game_over.emit()
 
+func halve_countdown() -> void:
+	countdown /= 2
+	countdown_changed.emit(countdown)
+
 func reset_multiplier(reason: String) -> void:
 	var old_multiplier = multiplier
 	multiplier = 1.0

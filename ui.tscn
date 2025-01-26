@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bygxofx6k28vs"]
+[gd_scene load_steps=19 format=3 uid="uid://bygxofx6k28vs"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="2_rnx37"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bxx8k26vj4afs" path="res://fonts/Aldrich-Regular.ttf" id="3_i22p6"]
 [ext_resource type="Texture2D" uid="uid://csu3spc0j8483" path="res://graphics/simple-beat.png" id="3_sq8pv"]
 [ext_resource type="Texture2D" uid="uid://c2jpid6viucsk" path="res://graphics/hit-beat.png" id="4_n5tqd"]
+[ext_resource type="Script" path="res://scripts/scoreboard.gd" id="4_o60vr"]
 [ext_resource type="Texture2D" uid="uid://vaed2tj1q57o" path="res://graphics/hit-beat-ring.png" id="5_tcsv3"]
 [ext_resource type="Texture2D" uid="uid://b36ttaagtxh3t" path="res://graphics/Game_Over_modal.png" id="8_87hxm"]
 [ext_resource type="Script" path="res://scripts/game_over_overlay.gd" id="8_vfba4"]
@@ -56,6 +57,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ceq3d")
 style_reason = ExtResource("2_rnx37")
+
+[node name="ScoreboardText" type="RichTextLabel" parent="UI"]
+z_index = 4
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -446.0
+offset_right = -24.0
+offset_bottom = 446.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_i22p6")
+theme_override_font_sizes/normal_font_size = 32
+text = "#23 PZ3 : 22000"
+script = ExtResource("4_o60vr")
 
 [node name="Points" type="Label" parent="UI"]
 layout_mode = 1
@@ -224,23 +244,6 @@ text = "_ _ _"
 label_settings = SubResource("LabelSettings_lx3nm")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ScoreboardText" type="RichTextLabel" parent="UI/GameOverOverlay"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -638.0
-offset_top = -446.0
-offset_right = -102.0
-offset_bottom = 446.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("3_i22p6")
-theme_override_font_sizes/normal_font_size = 32
-text = "#23 PZ3 : 22000"
 
 [node name="HelpContainer" type="Control" parent="UI"]
 anchors_preset = 0

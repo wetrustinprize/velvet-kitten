@@ -4,11 +4,12 @@ signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
 signal countdown_changed(countdown: int)
 signal beat_changed(beat: int, next_beat: float)
+signal scoreboard_updated(scoreboard: Array)
 signal game_over()
 
 var multiplier: float = 1.0
 var score: int = 0
-var countdown_seconds: float = 60
+var countdown_seconds: float = 3
 var countdown: float = 0.0
 var clock_enabled: bool = false
 

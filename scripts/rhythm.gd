@@ -4,12 +4,9 @@ extends Timer
 
 @onready var table: Node2D = get_parent().get_node("Table")
 @onready var paws: Paws = get_parent().get_node("Paws")
-@onready var hold_ball: Ball = get_parent().get_node("HoldBall")
-@onready var hold_ball_info: BallInfo = BallInfo.random()
 
 var disable_hit: bool = false
 var can_hit: bool = false
-var hitted: bool = false
 
 var beat: int = 1
 var stage: int = 0
@@ -35,7 +32,7 @@ func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	if old_stage < stage:
 		FmodServer.play_one_shot("event:/stage-up")
 
-	FmodServer.set_global_parameter_by_name("Stage", stage)
+	FmodServer.set_global_parameter_by_name("Phase", stage)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -56,25 +53,15 @@ func _input(event: InputEvent) -> void:
 				Game.add_points(-500, "out of bounds")
 			else:
 				Game.add_multiplier(0.05, "hit")
-			hitted = true
 
 func _on_game_over() -> void:
 	disable_hit = true
 	stop()
 
-func _switch_ball() -> void:
-	var old_ball = paws.ball_info
-	paws.update_ball_info(hold_ball_info)
-
-	hold_ball_info = old_ball
-	hold_ball.update_info(hold_ball_info)
-
 func _on_timeout() -> void:
 	var inverse: bool = beat % 2 == 0
 	
-	if beat == 3:
-		hitted = false
-	else:
+	if beat != 3:
 		if beat == 2:
 			var pre_buffer = func():
 				can_hit = true
@@ -82,9 +69,6 @@ func _on_timeout() -> void:
 			
 			var after_buffer = func():
 				can_hit = false
-
-				if not hitted:
-					_switch_ball()
 			get_tree().create_timer(wait_time + buffer_time).timeout.connect(after_buffer)
 
 		var tween: Tween = get_tree().create_tween()

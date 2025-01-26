@@ -4,6 +4,7 @@ class_name Ball
 @export var info: BallInfo = BallInfo.new()
 
 @onready var sprite: Sprite2D = $Sprite
+@onready var smoke: AnimatedSprite2D = $Smoke
 @onready var shape_cast: ShapeCast2D = $ShapeCast
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -13,12 +14,24 @@ func _ready() -> void:
 func update_info(new_info: BallInfo) -> void:
 	info = new_info
 
+	sprite.modulate = Color.WHITE
+	if info.type != BallInfo.TYPE.BLACK:
+		sprite.texture = load("res://graphics/outer_ball/%s.png" % info.type)
+
 	match info.type:
 		BallInfo.TYPE.BLACK:
 			sprite.modulate = Color.BLACK
-		_:
-			sprite.modulate = Color.WHITE
-			sprite.texture = load("res://graphics/outer_ball/%s.png" % info.type)
+			smoke.modulate = Color.BLACK
+		BallInfo.TYPE.GREEN:
+			smoke.modulate = Color.GREEN
+		BallInfo.TYPE.RED:
+			smoke.modulate = Color.RED
+		BallInfo.TYPE.YELLOW:
+			smoke.modulate = Color.YELLOW
+		BallInfo.TYPE.PURPLE:
+			smoke.modulate = Color.PURPLE
+		BallInfo.TYPE.BLUE:
+			smoke.modulate = Color.BLUE
 
 func get_neighbors() -> Array[Ball]:
 	shape_cast.force_shapecast_update()

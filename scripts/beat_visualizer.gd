@@ -30,12 +30,10 @@ func _on_beat_changed(beat: int, next_beat: float) -> void:
 			beat_three.modulate.a = 1.0
 
 			var ring_tween: Tween = get_tree().create_tween()
-			beat_four_ring.modulate.a = 0.0
 			ring_tween.tween_property(beat_four_ring, "modulate:a", 1.0, next_beat - 0.2).set_ease(Tween.EaseType.EASE_IN)
 		3:
 			beat_one.modulate.a = disabled_opacity
 			beat_two.modulate.a = disabled_opacity
 			beat_three.modulate.a = disabled_opacity
-
 			beat_four_ring.modulate.a = 0.0
 			beat_four.modulate.a = 1.0

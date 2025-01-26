@@ -31,7 +31,7 @@ DSP/dsp_buffer_count=4
 config/name="Velvet Underkitten"
 run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 

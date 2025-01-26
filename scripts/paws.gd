@@ -43,14 +43,13 @@ func _update_ball_info(new_ball_info: BallInfo) -> void:
 	ball_info = new_ball_info
 	ball.update_info(ball_info)
 
-func hit() -> void:
+func hit() -> bool:
 	var result = calculate_hit(raycast_origin.position, initial_target_position)
 
 	if result.is_empty() or result.collider is not Ball:
-		return
+		return false
 
 	var new_ball = ball_scene.instantiate()
-	Game.balls.append(new_ball)
 	var table: Node2D = get_parent().get_node("Table")
 
 	table.add_child(new_ball)
@@ -60,9 +59,18 @@ func hit() -> void:
 	pos += result.hit_normal.normalized() * 110
 
 	new_ball.position = table.to_local(pos)
-	new_ball.check_neighbors()
-
 	_update_ball_info(BallInfo.random())
+
+	var new_ball_pos = abs(new_ball.position.y) + abs(new_ball.position.x)
+	print(new_ball_pos)
+	if new_ball_pos > 530:
+		new_ball.queue_free()
+		return false
+
+	Game.balls.append(new_ball)
+	# new_ball.check_neighbors()
+
+	return true
 
 func calculate_hit(new_position: Vector2, target_position: Vector2, current_bounces: int = 0) -> Dictionary:
 	if current_bounces >= raycast_max_bounces + 1:

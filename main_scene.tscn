@@ -14,15 +14,19 @@ size = Vector2(41, 1082)
 zoom = Vector2(0.7, 0.7)
 
 [node name="Table" type="Node2D" parent="."]
-position = Vector2(0, -134)
+position = Vector2(-2, -223)
 
 [node name="Stone" parent="Table" instance=ExtResource("1_xsy2t")]
 
 [node name="Paws" parent="." instance=ExtResource("2_fy05x")]
 position = Vector2(0, 779)
+paw_speed = null
+max_rotation_deg = null
+raycast_max_bounces = null
+raycast_max_distance = null
 
 [node name="Walls" type="StaticBody2D" parent="." groups=["bounce"]]
-position = Vector2(10, -134)
+position = Vector2(8, -223)
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-557, 0)
@@ -45,7 +49,6 @@ script = ExtResource("4_1ox6f")
 [node name="Music" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/Music"
 event_guid = "{c05a91cf-19a9-4df0-a950-173a277d6574}"
-autoplay = true
 
 [node name="BankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank"]

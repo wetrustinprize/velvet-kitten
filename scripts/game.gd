@@ -39,6 +39,9 @@ func reset_multiplier(reason: String) -> void:
 	multiplier = 1.0
 	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = (-old_multiplier + 1.0) })
 
+	if old_multiplier > 1.0:
+		FmodServer.play_one_shot("event:/miss-error")
+
 func add_multiplier(value: float, reason: String) -> void:
 	multiplier += value
 	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = value })

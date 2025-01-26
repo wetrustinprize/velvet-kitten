@@ -12,6 +12,7 @@ var can_hit: bool = false
 var hitted: bool = false
 
 var beat: int = 1
+var stage: int = 0
 var tween_duration: float = 0.1
 var bpm = 140.0
 
@@ -20,14 +21,21 @@ func _ready() -> void:
 	Game.multiplier_changed.connect(handle_multiplier_changed)
 	Game.game_over.connect(_on_game_over)
 func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
+	var old_stage = stage
+
 	if multiplier < 1.99:
-		FmodServer.set_global_parameter_by_name("Phase", 0)
+		stage = 0
 	elif multiplier < 2.99:
-		FmodServer.set_global_parameter_by_name("Phase", 1)
+		stage = 1
 	elif multiplier < 3.99:
-		FmodServer.set_global_parameter_by_name("Phase", 2)
+		stage = 2
 	else:
-		FmodServer.set_global_parameter_by_name("Phase", 3)
+		stage = 3
+
+	if old_stage < stage:
+		FmodServer.play_one_shot("event:/stage-up")
+
+	FmodServer.set_global_parameter_by_name("Stage", stage)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

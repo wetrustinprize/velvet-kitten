@@ -11,6 +11,7 @@ var multiplier: float = 1.0
 var score: int = 0
 var countdown_seconds: float = 60
 var countdown: float = 0.0
+var elapsed_seconds: float = 0.0
 var clock_enabled: bool = false
 
 var balls: Array[Ball] = []
@@ -38,6 +39,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if clock_enabled:
 		countdown -= delta
+		elapsed_seconds += delta
 		countdown_changed.emit(countdown)
 
 		if countdown <= 0.0:
@@ -59,7 +61,7 @@ func add_points(points: int, reason: String) -> void:
 	var sum = int(points * multiplier) if points > 0 else int(points)
 
 	if sum > 0:
-		var aditional_seconds = int(float(sum) / 100)
+		var aditional_seconds = (float(sum) / 100) * min(0.05, 1 - (elapsed_seconds / (60 * 4)))
 
 		countdown += aditional_seconds
 		countdown_changed.emit(countdown)
@@ -101,6 +103,7 @@ func reset() -> void:
 	multiplier = 1.0
 	score = 0
 	countdown = countdown_seconds
+	elapsed_seconds = 0.0
 	clock_enabled = false
 
 	for ball in balls:

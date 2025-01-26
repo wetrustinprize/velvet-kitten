@@ -1,17 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://bygxofx6k28vs"]
+[gd_scene load_steps=10 format=3 uid="uid://bygxofx6k28vs"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="2_rnx37"]
 [ext_resource type="Script" path="res://scripts/beat_visualizer.gd" id="3_h6fiw"]
+[ext_resource type="FontFile" uid="uid://bxx8k26vj4afs" path="res://fonts/Aldrich-Regular.ttf" id="3_i22p6"]
 [ext_resource type="Texture2D" uid="uid://csu3spc0j8483" path="res://graphics/simple-beat.png" id="3_sq8pv"]
 [ext_resource type="Texture2D" uid="uid://c2jpid6viucsk" path="res://graphics/hit-beat.png" id="4_n5tqd"]
 [ext_resource type="Texture2D" uid="uid://vaed2tj1q57o" path="res://graphics/hit-beat-ring.png" id="5_tcsv3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6avhg"]
+font = ExtResource("3_i22p6")
 font_size = 111
+font_color = Color(0.113725, 0.0392157, 0.172549, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l1j0d"]
+font = ExtResource("3_i22p6")
 font_size = 56
+font_color = Color(0.113725, 0.0392157, 0.172549, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -32,11 +37,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -897.0
-offset_top = 140.0
+offset_top = 148.0
 offset_right = -417.0
-offset_bottom = 292.0
+offset_bottom = 300.0
 grow_horizontal = 2
-text = "1.000 pts"
+text = "1.000"
 label_settings = SubResource("LabelSettings_6avhg")
 horizontal_alignment = 1
 

@@ -35,7 +35,7 @@ func update_multiplier(multiplier: float, info: Dictionary):
 	_create_style_reason(info["reason"], "+" + str(info["sum"]) + "x")
 	
 func update_score(score: int, info: Dictionary):
-	points_label.text = str(score) + " pts"
+	points_label.text = str(score)
 
 	if info.is_empty():
 		return

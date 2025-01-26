@@ -73,7 +73,7 @@ func add_points(points: int, reason: String) -> void:
 		clock_enabled = false
 		game_over.emit()
 
-func check_flying_balls() -> void:
+func check_flying_balls() -> int:
 	var stone = get_tree().root.get_node("Main Scene/Table/Stone")
 
 	var ok_balls: Array[Ball] = stone.get_neighbors()
@@ -100,6 +100,8 @@ func check_flying_balls() -> void:
 
 	if total_deleted > 0:
 		add_points(total_deleted * 50, "explode " + str(total_deleted) + "x")
+	
+	return total_deleted
 
 func reset() -> void:
 	multiplier = 1.0

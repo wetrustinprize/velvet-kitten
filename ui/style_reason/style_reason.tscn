@@ -1,8 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://cribo2sn025ul"]
+[gd_scene load_steps=3 format=3 uid="uid://cribo2sn025ul"]
 
 [ext_resource type="LabelSettings" uid="uid://cqp6yfhd0qll3" path="res://ui/style_reason/label_settings.tres" id="1_hspx3"]
 
+[sub_resource type="GDScript" id="GDScript_x2x5p"]
+resource_name = "Animation"
+script/source = "extends HBoxContainer
+
+func _ready() -> void:
+	modulate.a = 0.0
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, \"modulate:a\", 1.0, 0.05)
+	
+	var opacity_tween = func():
+		var t = get_tree().create_tween()
+		t.tween_property(self, \"modulate:a\", 0.4, 1)
+	
+	get_tree().create_timer(3).timeout.connect(opacity_tween)
+"
+
 [node name="Style Reason" type="HBoxContainer"]
+pivot_offset = Vector2(0, 18)
+script = SubResource("GDScript_x2x5p")
 
 [node name="Reason" type="Label" parent="."]
 layout_mode = 2

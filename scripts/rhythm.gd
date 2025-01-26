@@ -17,6 +17,7 @@ func _ready() -> void:
 	wait_time = 60.0 / bpm
 	Game.multiplier_changed.connect(handle_multiplier_changed)
 	Game.game_over.connect(_on_game_over)
+
 func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	var old_stage = stage
 
@@ -56,6 +57,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_game_over() -> void:
 	disable_hit = true
+	FmodServer.set_global_parameter_by_name("Phase", 4)
 	stop()
 
 func _on_timeout() -> void:

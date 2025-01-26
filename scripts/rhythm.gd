@@ -22,11 +22,11 @@ func _ready() -> void:
 func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	var old_stage = stage
 
-	if multiplier < 1.99:
+	if multiplier < 1.50:
 		stage = 0
-	elif multiplier < 2.99:
+	elif multiplier < 2.00:
 		stage = 1
-	elif multiplier < 3.99:
+	elif multiplier < 2.50:
 		stage = 2
 	else:
 		stage = 3

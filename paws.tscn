@@ -27,8 +27,8 @@ points = PackedVector2Array(0, 0, 0, 0)
 width = 2.0
 gradient = SubResource("Gradient_bd8i2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Patinhas" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(0, -126)
+position = Vector2(0, -35)
 scale = Vector2(0.140201, 0.140201)
 texture = ExtResource("3_y5b4g")

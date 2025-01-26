@@ -75,12 +75,14 @@ func get_match_line(ignore: Array[Ball] = []) -> Array[Ball]:
 
 	return match_line
 
-func check_neighbors() -> void:
-	match info.type:
-		_:
-			handle_default()
+func check_neighbors() -> int:
+	var total = handle_default()
+	var total_fly = Game.check_flying_balls()
 
-	Game.check_flying_balls()
+	if total >= 3 or total_fly > 0:
+		FmodServer.play_one_shot("event:/bubble-pop")
+
+	return total
 
 func explode() -> void:
 	Game.balls.erase(self)
@@ -90,7 +92,7 @@ func explode() -> void:
 	animation_player.play("explode")
 	z_index = 0
 
-func handle_default() -> void:
+func handle_default() -> int:
 	var match_line = get_match_line()
 	var match_total = match_line.size()
 
@@ -108,3 +110,5 @@ func handle_default() -> void:
 		5:
 			Game.add_points(700, "quintuplet")
 			Game.add_multiplier(0.3, "quintuplet")
+
+	return match_total

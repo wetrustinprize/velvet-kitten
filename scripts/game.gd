@@ -3,12 +3,29 @@ extends Node
 signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
 signal countdown_changed(countdown: int)
+signal game_over()
 
 var multiplier: float = 1.0
 var score: int = 0
-var countdown: int = 0
+var countdown_seconds: float = 60
+var countdown: float = 0.0
+var clock_enabled: bool = true
 
 var balls: Array[Ball] = []
+
+func _ready() -> void:
+	reset()
+
+	clock_enabled = true
+
+func _process(delta: float) -> void:
+	if clock_enabled:
+		countdown -= delta
+		countdown_changed.emit(countdown)
+
+		if countdown <= 0.0:
+			clock_enabled = false
+			game_over.emit()
 
 func reset_multiplier(reason: String) -> void:
 	var old_multiplier = multiplier
@@ -22,8 +39,18 @@ func add_multiplier(value: float, reason: String) -> void:
 func add_points(points: int, reason: String) -> void:
 	var sum = int(points * multiplier) if points > 0 else int(points)
 
+	if sum > 0:
+		var aditional_seconds = (float(sum) / 500) * 3.0
+
+		countdown += aditional_seconds
+		countdown_changed.emit(countdown)
+	
 	score += sum
 	score_changed.emit(score, { "reason" = reason, "sum" = sum })
+
+	if score <= 0:
+		clock_enabled = false
+		game_over.emit()
 
 func check_flying_balls() -> void:
 	var stone = get_tree().root.get_node("Main Scene/Table/Stone")
@@ -57,6 +84,8 @@ func check_flying_balls() -> void:
 func reset() -> void:
 	multiplier = 1.0
 	score = 0
+	countdown = countdown_seconds
+	clock_enabled = false
 
 	for ball in balls:
 		ball.queue_free()

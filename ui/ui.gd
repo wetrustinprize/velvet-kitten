@@ -4,15 +4,24 @@ extends Control
 
 @onready var multiplier_label: Label = $Multiplier
 @onready var points_label: Label = $Points
+@onready var countdown_label: Label = $Countdown
 @onready var style_reason_container: BoxContainer = $StyleReasonContainer
 
 func _ready() -> void:
 	Game.multiplier_changed.connect(update_multiplier)
 	Game.score_changed.connect(update_score)
-	
+	Game.countdown_changed.connect(update_countdown)
+
 	update_multiplier(Game.multiplier, {})
 	update_score(Game.score, {})
-	
+	update_countdown(Game.countdown)
+
+func update_countdown(countdown: float) -> void:
+	var minutes = int(countdown) / 60
+	var seconds = int(countdown) % 60
+
+	countdown_label.text = str(minutes).pad_zeros(2) + ":" + str(seconds).pad_zeros(2)
+
 func update_multiplier(multiplier: float, info: Dictionary):
 	multiplier_label.text = str(multiplier).pad_decimals(2) + "x"
 

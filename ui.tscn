@@ -52,7 +52,7 @@ text = "1.0x"
 label_settings = SubResource("LabelSettings_l1j0d")
 horizontal_alignment = 2
 
-[node name="Timer" type="Label" parent="UI"]
+[node name="Countdown" type="Label" parent="UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

@@ -7,6 +7,7 @@ extends Timer
 @onready var hold_ball: Ball = get_parent().get_node("HoldBall")
 @onready var hold_ball_info: BallInfo = BallInfo.random()
 
+var disable_hit: bool = false
 var can_hit: bool = false
 var hitted: bool = false
 
@@ -17,7 +18,7 @@ var bpm = 140.0
 func _ready() -> void:
 	wait_time = 60.0 / bpm
 	Game.multiplier_changed.connect(handle_multiplier_changed)
-
+	Game.game_over.connect(_on_game_over)
 func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 	if multiplier < 1.99:
 		FmodServer.set_global_parameter_by_name("Phase", 0)
@@ -30,6 +31,9 @@ func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		if disable_hit:
+			return
+
 		if event.button_index != 1 or not event.is_pressed():
 			return
 		
@@ -46,6 +50,9 @@ func _input(event: InputEvent) -> void:
 				Game.add_multiplier(0.05, "hit")
 			hitted = true
 
+func _on_game_over() -> void:
+	disable_hit = true
+	stop()
 
 func _switch_ball() -> void:
 	var old_ball = paws.ball_info

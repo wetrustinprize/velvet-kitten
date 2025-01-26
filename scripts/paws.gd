@@ -15,21 +15,16 @@ class_name Paws
 
 @onready var ball_info: BallInfo = BallInfo.random()
 
-var mouse_sensitivity: float = 0.001
 var desired_rotation: float = 0.0
 
 func _ready() -> void:
 	initial_target_position = Vector2(0, -raycast_max_distance)
-
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 	ball.update_info(ball_info)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var x_diff = event.relative.x
-
-		desired_rotation += x_diff * mouse_sensitivity
+		var direction = global_position.direction_to(get_global_mouse_position())
+		desired_rotation = direction.angle() + deg_to_rad(90)
 		desired_rotation = clamp(desired_rotation, -deg_to_rad(max_rotation_deg), deg_to_rad(max_rotation_deg))
 
 func _process(delta: float) -> void:

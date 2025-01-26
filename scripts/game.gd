@@ -65,10 +65,6 @@ func add_points(points: int, reason: String) -> void:
 	score += sum
 	score_changed.emit(score, { "reason" = reason, "sum" = sum })
 
-	if score <= 0:
-		clock_enabled = false
-		game_over.emit()
-
 func check_flying_balls() -> int:
 	var stone = get_tree().root.get_node("Main Scene/Table/Stone")
 

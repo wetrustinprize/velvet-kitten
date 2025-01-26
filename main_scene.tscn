@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=15 format=3 uid="uid://d3b2nlibw3spp"]
 
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="Texture2D" uid="uid://cf6uhc6q5i7y6" path="res://graphics/Mask group.png" id="2_e0bhn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://76f62wvm1bqq" path="res://graphics/cabecinha_DJ.png" id="9_jit41"]
 [ext_resource type="Script" path="res://scripts/dj_cat.gd" id="9_w7dx3"]
 [ext_resource type="Texture2D" uid="uid://06dyefmtoqny" path="res://graphics/Corpo_DJ_decaptado.png" id="10_kmjn6"]
+[ext_resource type="Texture2D" uid="uid://cb5glqwj7yqdh" path="res://graphics/cabecinha_triste.png" id="10_vrdj6"]
 
 [sub_resource type="GDScript" id="GDScript_aw7cm"]
 resource_name = "Random Balls"
@@ -111,6 +112,8 @@ texture = ExtResource("8_csotx")
 z_index = -4
 position = Vector2(-959, 260)
 script = ExtResource("9_w7dx3")
+head_normal = ExtResource("9_jit41")
+head_sad = ExtResource("10_vrdj6")
 
 [node name="Head" type="Sprite2D" parent="DJCat"]
 z_index = 1

@@ -8,7 +8,7 @@ signal game_over()
 
 var multiplier: float = 1.0
 var score: int = 0
-var countdown_seconds: float = 60 * 2
+var countdown_seconds: float = 5
 var countdown: float = 0.0
 var clock_enabled: bool = true
 

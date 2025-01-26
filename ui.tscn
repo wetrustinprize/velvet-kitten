@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bygxofx6k28vs"]
+[gd_scene load_steps=16 format=3 uid="uid://bygxofx6k28vs"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="2_rnx37"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c2jpid6viucsk" path="res://graphics/hit-beat.png" id="4_n5tqd"]
 [ext_resource type="Texture2D" uid="uid://vaed2tj1q57o" path="res://graphics/hit-beat-ring.png" id="5_tcsv3"]
 [ext_resource type="Texture2D" uid="uid://b36ttaagtxh3t" path="res://graphics/Game_Over_modal.png" id="8_87hxm"]
+[ext_resource type="Script" path="res://scripts/game_over_overlay.gd" id="8_vfba4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6avhg"]
 font = ExtResource("3_i22p6")
@@ -21,6 +22,21 @@ font_color = Color(0.113725, 0.0392157, 0.172549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjd7p"]
 bg_color = Color(0.113725, 0.0392157, 0.172549, 0.8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r12y0"]
+font = ExtResource("3_i22p6")
+font_size = 33
+font_color = Color(0.984314, 0.588235, 0.364706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gfasp"]
+font = ExtResource("3_i22p6")
+font_size = 41
+font_color = Color(0.984314, 0.588235, 0.364706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lx3nm"]
+font = ExtResource("3_i22p6")
+font_size = 120
+font_color = Color(0.984314, 0.588235, 0.364706, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -136,6 +152,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jjd7p")
+script = ExtResource("8_vfba4")
 
 [node name="TextureRect" type="TextureRect" parent="UI/GameOverOverlay"]
 layout_mode = 1
@@ -152,3 +169,51 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(539, 390)
 texture = ExtResource("8_87hxm")
+
+[node name="HighscoreGuide" type="Label" parent="UI/GameOverOverlay/TextureRect"]
+offset_left = 19.0
+offset_top = 581.0
+offset_right = 1055.0
+offset_bottom = 662.0
+text = "Write and press 'enter' to submit your highscore!"
+label_settings = SubResource("LabelSettings_r12y0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartGuide" type="Label" parent="UI/GameOverOverlay/TextureRect"]
+offset_left = 19.0
+offset_top = 648.0
+offset_right = 1055.0
+offset_bottom = 729.0
+text = "Press 'esc' to restart the game!"
+label_settings = SubResource("LabelSettings_r12y0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinContainer" type="CenterContainer" parent="UI/GameOverOverlay/TextureRect"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 163.0
+offset_right = 1015.0
+offset_bottom = 244.0
+
+[node name="GoodGame" type="Label" parent="UI/GameOverOverlay/TextureRect/WinContainer"]
+layout_mode = 2
+text = "Good game!
+You made 15000 points!"
+label_settings = SubResource("LabelSettings_gfasp")
+horizontal_alignment = 1
+
+[node name="HighscoreContainer" type="CenterContainer" parent="UI/GameOverOverlay/TextureRect"]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 380.0
+offset_right = 701.0
+offset_bottom = 493.0
+
+[node name="PlayerName" type="Label" parent="UI/GameOverOverlay/TextureRect/HighscoreContainer"]
+layout_mode = 2
+text = "_ _ _"
+label_settings = SubResource("LabelSettings_lx3nm")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -47,6 +47,9 @@ func _input(event: InputEvent) -> void:
 		if event.keycode == KEY_BACKSPACE:
 			player_name_input = player_name_input.substr(0, player_name_input.length() - 1)
 		elif event.keycode == KEY_ENTER:
+			if player_name_input.length() < 3:
+				return
+
 			listen_player_name = false
 
 			var scoreboard: Array = SaveSystem.get_var("scoreboard", [])

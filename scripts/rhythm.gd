@@ -4,8 +4,11 @@ extends Timer
 
 @onready var table: Node2D = get_parent().get_node("Table")
 @onready var paws: Paws = get_parent().get_node("Paws")
+@onready var hold_ball: Ball = get_parent().get_node("HoldBall")
+@onready var hold_ball_info: BallInfo = BallInfo.random()
 
 var can_hit: bool = false
+var hitted: bool = false
 
 var beat: int = 1
 var tween_duration: float = 0.1
@@ -13,7 +16,6 @@ var bpm = 140.0
 
 func _ready() -> void:
 	wait_time = 60.0 / bpm
-
 	Game.multiplier_changed.connect(handle_multiplier_changed)
 
 func handle_multiplier_changed(multiplier: float, _info: Dictionary) -> void:
@@ -35,6 +37,7 @@ func _input(event: InputEvent) -> void:
 			Game.reset_multiplier("miss")
 		else:
 			Game.add_multiplier(0.05, "hit")
+			hitted = true
 
 		paws.hit()
 
@@ -43,6 +46,14 @@ func _on_timeout() -> void:
 	
 	if beat == 3:
 		beat = 0
+
+		if not hitted:
+			var old_ball = paws.ball_info
+			paws._update_ball_info(hold_ball_info)
+			hold_ball_info = old_ball
+
+		hold_ball.update_info(hold_ball_info)
+		hitted = false
 	else:
 		if beat == 2:
 			get_tree().create_timer(wait_time - buffer_time).timeout.connect(func(): can_hit = true)

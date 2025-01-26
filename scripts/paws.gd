@@ -39,6 +39,10 @@ func _process(delta: float) -> void:
 	line.add_point(raycast_origin.position)
 	calculate_hit(raycast_origin.position, initial_target_position)
 
+func _update_ball_info(new_ball_info: BallInfo) -> void:
+	ball_info = new_ball_info
+	ball.update_info(ball_info)
+
 func hit() -> void:
 	var result = calculate_hit(raycast_origin.position, initial_target_position)
 
@@ -58,8 +62,7 @@ func hit() -> void:
 	new_ball.position = table.to_local(pos)
 	new_ball.check_neighbors()
 
-	ball_info = BallInfo.random()
-	ball.update_info(ball_info)
+	_update_ball_info(BallInfo.random())
 
 func calculate_hit(new_position: Vector2, target_position: Vector2, current_bounces: int = 0) -> Dictionary:
 	if current_bounces >= raycast_max_bounces + 1:

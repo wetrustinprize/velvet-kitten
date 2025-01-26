@@ -56,5 +56,10 @@ bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank"]
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_301vx")
 
+[node name="HoldBall" parent="." instance=ExtResource("1_xsy2t")]
+position = Vector2(-247, 704)
+collision_layer = 0
+collision_mask = 0
+
 [connection signal="timeout" from="Rhythm" to="Rhythm" method="_on_timeout"]
 [connection signal="started" from="Music" to="Rhythm" method="_on_music_started"]

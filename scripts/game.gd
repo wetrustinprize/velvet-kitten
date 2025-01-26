@@ -8,7 +8,7 @@ signal game_over()
 
 var multiplier: float = 1.0
 var score: int = 0
-var countdown_seconds: float = 5
+var countdown_seconds: float = 3
 var countdown: float = 0.0
 var clock_enabled: bool = true
 
@@ -30,14 +30,8 @@ func _input(event: InputEvent) -> void:
 			return
 
 		match event.keycode:
-			KEY_R:
+			KEY_ESCAPE:
 				restart_game()
-			KEY_C:
-				for ball in balls.duplicate():
-					ball.explode()
-				balls.clear()
-			KEY_M:
-				Game.add_multiplier(1.0, "cheater!")
 
 func _process(delta: float) -> void:
 	if clock_enabled:

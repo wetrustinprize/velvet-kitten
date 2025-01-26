@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://beh5rqjujuq1k"]
+[gd_scene load_steps=19 format=3 uid="uid://beh5rqjujuq1k"]
 
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_wpxwf"]
 [ext_resource type="Texture2D" uid="uid://bjyd06duy8jxt" path="res://graphics/outer_ball/1.png" id="2_426t8"]
+[ext_resource type="Texture2D" uid="uid://6d7xo8m8iyqa" path="res://graphics/smoke.png" id="3_g6mav"]
 
 [sub_resource type="GDScript" id="GDScript_j0mxn"]
 resource_name = "Fix Rotation"
@@ -10,10 +11,81 @@ script/source = "extends Sprite2D
 var speed: float = 5.0
 
 func _process(delta: float) -> void:
-	var want_rotation = -get_parent().get_parent().rotation
+	var table = get_tree().root.get_node(\"Main Scene/Table\")
 	
+	if table == null:
+		return
+		
+	if get_parent().get_parent() != table:
+		return
+	
+	var want_rotation = -table.rotation
 	rotation = want_rotation
 "
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaf3a"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(0, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kh5us"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(840, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv26s"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(1680, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grvdv"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(2520, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_womns"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(3360, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7yxa"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(4200, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rl08"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(5040, 0, 840, 840)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1g5b"]
+atlas = ExtResource("3_g6mav")
+region = Rect2(5880, 0, 840, 840)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rebgo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uaf3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kh5us")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv26s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grvdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_womns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7yxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rl08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1g5b")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 30.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ya6o"]
 radius = 71.29
@@ -32,6 +104,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0.21, 0.21)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Smoke:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_tpewc"]
 resource_name = "spawn"
@@ -49,9 +133,66 @@ tracks/0/keys = {
 "values": [Vector2(0.1, 0.1), Vector2(0.21, 0.21)]
 }
 
+[sub_resource type="Animation" id="Animation_3r87v"]
+resource_name = "explode"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.21, 0.21), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Smoke:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Smoke")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"explode", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_74wa0"]
 _data = {
 "RESET": SubResource("Animation_ju8rg"),
+"explode": SubResource("Animation_3r87v"),
 "spawn": SubResource("Animation_tpewc")
 }
 
@@ -62,6 +203,12 @@ script = ExtResource("1_wpxwf")
 scale = Vector2(0.21, 0.21)
 texture = ExtResource("2_426t8")
 script = SubResource("GDScript_j0mxn")
+
+[node name="Smoke" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.21, 0.21)
+sprite_frames = SubResource("SpriteFrames_rebgo")
+animation = &"explode"
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 scale = Vector2(16, 16)

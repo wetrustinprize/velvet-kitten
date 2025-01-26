@@ -76,7 +76,20 @@ func handle_default() -> void:
 	if match_line.size() > 2:
 		for ball in match_line:
 			Game.balls.erase(ball)
-			ball.queue_free()
+
+			ball.collision_layer = 0
+			ball.collision_mask = 0
+			ball.animation_player.play("explode")
+			ball.z_index = 2
+
+			var root = get_tree().root
+			var parent = ball.get_parent()
+			var g_pos = ball.global_position
+
+			parent.remove_child(ball)
+			root.add_child(ball)
+			ball.global_rotation_degrees = 0
+			ball.global_position = g_pos
 
 	match match_total:
 		3:

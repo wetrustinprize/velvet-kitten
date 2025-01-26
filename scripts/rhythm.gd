@@ -1,6 +1,6 @@
 extends Timer
 
-@export var buffer_time: float = 0.3
+@export var buffer_time: float = 0.2
 
 @onready var table: Node2D = get_parent().get_node("Table")
 @onready var paws: Paws = get_parent().get_node("Paws")
@@ -43,14 +43,16 @@ func _on_timeout() -> void:
 	
 	if beat == 3:
 		beat = 0
-		can_hit = false
 	else:
 		if beat == 2:
 			get_tree().create_timer(wait_time - buffer_time).timeout.connect(func(): can_hit = true)
-			pass
+			get_tree().create_timer(wait_time + buffer_time).timeout.connect(func(): can_hit = false)
 
 		var tween: Tween = get_tree().create_tween()
 		var rot = table.rotation_degrees + 45 * (-1 if inverse else 1)
 		tween.tween_property(table, "rotation_degrees", rot, tween_duration).set_trans(Tween.TRANS_SPRING)
 		beat += 1
 		
+
+func _on_music_started() -> void:
+	start()

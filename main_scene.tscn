@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=7 format=3 uid="uid://d3b2nlibw3spp"]
 
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
 [ext_resource type="Script" path="res://scripts/rhythm.gd" id="4_1ox6f"]
 [ext_resource type="PackedScene" uid="uid://bygxofx6k28vs" path="res://ui.tscn" id="5_08jql"]
+[ext_resource type="AudioStream" uid="uid://5r1es64iff5w" path="res://music/placeholder/placeholder.wav" id="5_301vx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opmb6"]
 size = Vector2(41, 1082)
@@ -40,7 +41,6 @@ shape = SubResource("RectangleShape2D_opmb6")
 
 [node name="Rhythm" type="Timer" parent="."]
 wait_time = 0.429
-autostart = true
 script = ExtResource("4_1ox6f")
 
 [node name="Music" type="FmodEventEmitter2D" parent="."]
@@ -53,4 +53,8 @@ bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank"]
 
 [node name="UI" parent="." instance=ExtResource("5_08jql")]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_301vx")
+
 [connection signal="timeout" from="Rhythm" to="Rhythm" method="_on_timeout"]
+[connection signal="started" from="Music" to="Rhythm" method="_on_music_started"]

@@ -14,3 +14,4 @@ width_curve = SubResource("Curve_fwxg4")
 end_cap_mode = 2
 round_precision = 18
 script = ExtResource("1_a3mu5")
+trail_duration = null

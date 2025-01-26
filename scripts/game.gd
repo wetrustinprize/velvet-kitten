@@ -31,6 +31,9 @@ func _input(event: InputEvent) -> void:
 		match event.keycode:
 			KEY_ESCAPE:
 				restart_game()
+			KEY_F1:
+				clock_enabled = false
+				game_over.emit()
 
 func _process(delta: float) -> void:
 	if clock_enabled:

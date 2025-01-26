@@ -17,11 +17,20 @@ class_name Paws
 
 @onready var ball_info: BallInfo = BallInfo.random()
 
+var can_aim: bool = true
+
 func _ready() -> void:
 	initial_target_position = Vector2(0, -raycast_max_distance)
 	ball.update_info(ball_info)
+	Game.game_over.connect(on_game_over)
+
+func on_game_over() -> void:
+	can_aim = false
 
 func _input(event: InputEvent) -> void:
+	if not can_aim:
+		return
+
 	if event is InputEventMouseMotion:
 		look_at(get_global_mouse_position())
 		rotation += deg_to_rad(90)

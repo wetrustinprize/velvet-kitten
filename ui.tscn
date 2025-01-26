@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bygxofx6k28vs"]
+[gd_scene load_steps=12 format=3 uid="uid://bygxofx6k28vs"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="2_rnx37"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://csu3spc0j8483" path="res://graphics/simple-beat.png" id="3_sq8pv"]
 [ext_resource type="Texture2D" uid="uid://c2jpid6viucsk" path="res://graphics/hit-beat.png" id="4_n5tqd"]
 [ext_resource type="Texture2D" uid="uid://vaed2tj1q57o" path="res://graphics/hit-beat-ring.png" id="5_tcsv3"]
+[ext_resource type="Texture2D" uid="uid://b36ttaagtxh3t" path="res://graphics/Game_Over_modal.png" id="8_87hxm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6avhg"]
 font = ExtResource("3_i22p6")
@@ -17,6 +18,9 @@ font_color = Color(0.113725, 0.0392157, 0.172549, 1)
 font = ExtResource("3_i22p6")
 font_size = 56
 font_color = Color(0.113725, 0.0392157, 0.172549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjd7p"]
+bg_color = Color(0.113725, 0.0392157, 0.172549, 0.8)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -123,3 +127,28 @@ stretch_mode = 3
 layout_mode = 2
 texture = ExtResource("5_tcsv3")
 stretch_mode = 3
+
+[node name="GameOverOverlay" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jjd7p")
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameOverOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -881.0
+offset_top = -390.0
+offset_right = 198.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(539, 390)
+texture = ExtResource("8_87hxm")

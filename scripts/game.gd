@@ -19,6 +19,11 @@ func _ready() -> void:
 
 	clock_enabled = true
 
+func restart_game() -> void:
+	reset()
+	get_tree().reload_current_scene()
+	clock_enabled = true
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if not event.is_pressed():
@@ -26,9 +31,7 @@ func _input(event: InputEvent) -> void:
 
 		match event.keycode:
 			KEY_R:
-				reset()
-				get_tree().reload_current_scene()
-				clock_enabled = true
+				restart_game()
 			KEY_C:
 				for ball in balls.duplicate():
 					ball.explode()

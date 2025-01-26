@@ -6,15 +6,26 @@ extends Control
 @onready var points_label: Label = $Points
 @onready var countdown_label: Label = $Countdown
 @onready var style_reason_container: BoxContainer = $StyleReasonContainer
+@onready var game_over_overlay: Panel = $GameOverOverlay
 
 func _ready() -> void:
 	Game.multiplier_changed.connect(update_multiplier)
 	Game.score_changed.connect(update_score)
 	Game.countdown_changed.connect(update_countdown)
+	Game.game_over.connect(on_game_over)
 
 	update_multiplier(Game.multiplier, {})
 	update_score(Game.score, {})
 	update_countdown(Game.countdown)
+
+	game_over_overlay.visible = false
+
+func on_game_over() -> void:
+	game_over_overlay.visible = true
+	game_over_overlay.modulate.a = 0
+
+	var tween = create_tween()
+	tween.tween_property(game_over_overlay, "modulate:a", 1, 0.1)
 
 func update_countdown(countdown: float) -> void:
 	var minutes = int(countdown) / 60

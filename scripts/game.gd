@@ -57,7 +57,7 @@ func add_points(points: int, reason: String) -> void:
 	var sum = int(points * multiplier) if points > 0 else int(points)
 
 	if sum > 0:
-		var aditional_seconds = int(float(sum) / 500)
+		var aditional_seconds = int(float(sum) / 100)
 
 		countdown += aditional_seconds
 		countdown_changed.emit(countdown)

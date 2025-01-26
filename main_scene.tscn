@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=7 format=3 uid="uid://d3b2nlibw3spp"]
 
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_eqe3y"]
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
 [ext_resource type="Script" path="res://scripts/rhythm.gd" id="4_1ox6f"]
@@ -12,6 +13,7 @@ size = Vector2(41, 1082)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)
+script = ExtResource("1_eqe3y")
 
 [node name="Table" type="Node2D" parent="."]
 position = Vector2(-2, -223)
@@ -20,10 +22,6 @@ position = Vector2(-2, -223)
 
 [node name="Paws" parent="." instance=ExtResource("2_fy05x")]
 position = Vector2(0, 779)
-paw_speed = null
-max_rotation_deg = null
-raycast_max_bounces = null
-raycast_max_distance = null
 
 [node name="Walls" type="StaticBody2D" parent="." groups=["bounce"]]
 position = Vector2(8, -223)

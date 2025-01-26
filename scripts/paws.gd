@@ -11,7 +11,9 @@ class_name Paws
 @onready var raycast_origin: Node2D = $RayCastOrigin
 @onready var raycast: RayCast2D = $RayCastOrigin/RayCast2D
 @onready var initial_target_position: Vector2 = Vector2.ZERO
+
 @onready var ball_scene: PackedScene = preload("res://ball.tscn")
+@onready var ball_trail_scene: PackedScene = preload("res://ball_trail.tscn")
 
 @onready var ball_info: BallInfo = BallInfo.random()
 
@@ -62,7 +64,21 @@ func hit() -> bool:
 		return false
 
 	Game.balls.append(new_ball)
+	new_ball.animation_player.play("spawn")
 	new_ball.check_neighbors()
+
+	get_viewport().get_camera_2d().add_trauma(0.1)
+
+	var ball_trail = ball_trail_scene.instantiate()
+
+	var ball_trail_points: Array[Vector2] = []
+	for point in line.points:
+		ball_trail_points.append(point)
+
+	get_tree().root.add_child(ball_trail)
+	ball_trail.rotation = rotation
+	ball_trail.position = line.global_position
+	ball_trail.setup(ball_trail_points)
 
 	return true
 

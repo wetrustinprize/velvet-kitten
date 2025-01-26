@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://beh5rqjujuq1k"]
+[gd_scene load_steps=8 format=3 uid="uid://beh5rqjujuq1k"]
 
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_wpxwf"]
 [ext_resource type="Texture2D" uid="uid://bjyd06duy8jxt" path="res://graphics/outer_ball/1.png" id="2_426t8"]
@@ -18,6 +18,43 @@ func _process(delta: float) -> void:
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ya6o"]
 radius = 71.29
 
+[sub_resource type="Animation" id="Animation_ju8rg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.21, 0.21)]
+}
+
+[sub_resource type="Animation" id="Animation_tpewc"]
+resource_name = "spawn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.21, 0.21)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_74wa0"]
+_data = {
+"RESET": SubResource("Animation_ju8rg"),
+"spawn": SubResource("Animation_tpewc")
+}
+
 [node name="Ball" type="CharacterBody2D"]
 script = ExtResource("1_wpxwf")
 
@@ -34,3 +71,8 @@ polygon = PackedVector2Array(4, 0, 2, 3.46, -2, 3.46, -4, 0, -2, -3.46, 2, -3.46
 [node name="ShapeCast" type="ShapeCast2D" parent="."]
 shape = SubResource("CircleShape2D_0ya6o")
 target_position = Vector2(0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_74wa0")
+}

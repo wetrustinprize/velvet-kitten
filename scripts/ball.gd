@@ -5,6 +5,7 @@ class_name Ball
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var shape_cast: ShapeCast2D = $ShapeCast
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	update_info(info)

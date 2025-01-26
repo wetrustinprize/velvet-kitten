@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0grhjumaiiox"]
+
+[ext_resource type="Script" path="res://scripts/ball_trail.gd" id="1_a3mu5"]
+
+[sub_resource type="Curve" id="Curve_fwxg4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="BallTrail" type="Line2D"]
+z_index = -1
+points = PackedVector2Array(0, 0, 0, -100)
+width = 80.0
+width_curve = SubResource("Curve_fwxg4")
+end_cap_mode = 2
+round_precision = 18
+script = ExtResource("1_a3mu5")

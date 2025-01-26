@@ -2,5 +2,9 @@
 *.a
 *.dylib
 *.so
-*.xcframework
-!libs/
+
+!libs/android/arm64
+!libs/iOS/
+!libs/linux/
+!libs/macos/
+!libs/windows/

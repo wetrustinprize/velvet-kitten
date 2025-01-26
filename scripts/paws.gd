@@ -47,6 +47,8 @@ func update_ball_info(new_ball_info: BallInfo) -> void:
 	ball.update_info(ball_info)
 
 func hit() -> bool:
+	Game.clock_enabled = true
+
 	var camera = get_viewport().get_camera_2d()
 	var result = calculate_hit(raycast_origin.position, initial_target_position)
 

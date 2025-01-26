@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bygxofx6k28vs"]
+[gd_scene load_steps=18 format=3 uid="uid://bygxofx6k28vs"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_ceq3d"]
 [ext_resource type="PackedScene" uid="uid://cribo2sn025ul" path="res://ui/style_reason/style_reason.tscn" id="2_rnx37"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://vaed2tj1q57o" path="res://graphics/hit-beat-ring.png" id="5_tcsv3"]
 [ext_resource type="Texture2D" uid="uid://b36ttaagtxh3t" path="res://graphics/Game_Over_modal.png" id="8_87hxm"]
 [ext_resource type="Script" path="res://scripts/game_over_overlay.gd" id="8_vfba4"]
+[ext_resource type="Script" path="res://scripts/help_container.gd" id="10_idpsg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6avhg"]
 font = ExtResource("3_i22p6")
@@ -37,6 +38,11 @@ font_color = Color(0.984314, 0.588235, 0.364706, 1)
 font = ExtResource("3_i22p6")
 font_size = 120
 font_color = Color(0.984314, 0.588235, 0.364706, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5cjns"]
+font = ExtResource("3_i22p6")
+font_size = 76
+font_color = Color(0.113725, 0.0392157, 0.172549, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -145,6 +151,7 @@ texture = ExtResource("5_tcsv3")
 stretch_mode = 3
 
 [node name="GameOverOverlay" type="Panel" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,3 +241,40 @@ grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("3_i22p6")
 theme_override_font_sizes/normal_font_size = 32
 text = "#23 PZ3 : 22000"
+
+[node name="HelpContainer" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = 953.0
+offset_top = 451.0
+offset_right = 993.0
+offset_bottom = 491.0
+script = ExtResource("10_idpsg")
+
+[node name="Help" type="Label" parent="UI/HelpContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 1334.0
+offset_bottom = 152.0
+grow_horizontal = 2
+text = "Launch on 
+the 4th beat!"
+label_settings = SubResource("LabelSettings_5cjns")
+horizontal_alignment = 1
+
+[node name="Counter" type="Label" parent="UI/HelpContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 414.0
+offset_top = 136.0
+offset_right = 894.0
+offset_bottom = 288.0
+grow_horizontal = 2
+text = "3..."
+label_settings = SubResource("LabelSettings_6avhg")
+horizontal_alignment = 1
+vertical_alignment = 1

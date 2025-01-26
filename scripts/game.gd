@@ -10,19 +10,17 @@ var multiplier: float = 1.0
 var score: int = 0
 var countdown_seconds: float = 60
 var countdown: float = 0.0
-var clock_enabled: bool = true
+var clock_enabled: bool = false
 
 var balls: Array[Ball] = []
 
 func _ready() -> void:
 	reset()
 
-	clock_enabled = true
-
 func restart_game() -> void:
 	reset()
 	get_tree().reload_current_scene()
-	clock_enabled = true
+	clock_enabled = false
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:

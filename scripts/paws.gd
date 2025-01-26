@@ -1,7 +1,6 @@
 extends Node2D
 class_name Paws
 
-@export var paw_speed: float = 150.0
 @export var max_rotation_deg: float = 45.0
 @export var raycast_max_bounces: int = 3
 @export var raycast_max_distance: float = 2000.0
@@ -17,21 +16,17 @@ class_name Paws
 
 @onready var ball_info: BallInfo = BallInfo.random()
 
-var desired_rotation: float = 0.0
-
 func _ready() -> void:
 	initial_target_position = Vector2(0, -raycast_max_distance)
 	ball.update_info(ball_info)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var direction = global_position.direction_to(get_global_mouse_position())
-		desired_rotation = direction.angle() + deg_to_rad(90)
-		desired_rotation = clamp(desired_rotation, -deg_to_rad(max_rotation_deg), deg_to_rad(max_rotation_deg))
+		look_at(get_global_mouse_position())
+		rotation += deg_to_rad(90)
+		rotation = clamp(rotation, -deg_to_rad(max_rotation_deg), deg_to_rad(max_rotation_deg))
 
-func _process(delta: float) -> void:
-	rotation = lerpf(rotation, desired_rotation, paw_speed * delta)
-
+func _process(_delta: float) -> void:
 	line.clear_points()
 	line.add_point(raycast_origin.position)
 	calculate_hit(raycast_origin.position, initial_target_position)

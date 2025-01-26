@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=15 format=3 uid="uid://d3b2nlibw3spp"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_eqe3y"]
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
@@ -13,6 +13,18 @@
 [ext_resource type="Script" path="res://scripts/dj_cat.gd" id="9_w7dx3"]
 [ext_resource type="Texture2D" uid="uid://06dyefmtoqny" path="res://graphics/Corpo_DJ_decaptado.png" id="10_kmjn6"]
 
+[sub_resource type="GDScript" id="GDScript_aw7cm"]
+resource_name = "Random Balls"
+script/source = "extends Node2D
+
+@export var balls: Array[Ball] = []
+
+func _ready() -> void:
+	for ball in balls:
+		Game.balls.append(ball)
+		ball.update_info(BallInfo.random())
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opmb6"]
 size = Vector2(41, 1082)
 
@@ -22,8 +34,10 @@ size = Vector2(41, 1082)
 zoom = Vector2(0.7, 0.7)
 script = ExtResource("1_eqe3y")
 
-[node name="Table" type="Node2D" parent="."]
+[node name="Table" type="Node2D" parent="." node_paths=PackedStringArray("balls")]
 position = Vector2(-2, -149)
+script = SubResource("GDScript_aw7cm")
+balls = [NodePath("Ball1"), NodePath("Ball2"), NodePath("Ball3")]
 
 [node name="Disk" type="Sprite2D" parent="Table"]
 z_index = -9
@@ -32,6 +46,15 @@ texture = ExtResource("2_e0bhn")
 
 [node name="Stone" parent="Table" instance=ExtResource("1_xsy2t")]
 visible = false
+
+[node name="Ball1" parent="Table" instance=ExtResource("1_xsy2t")]
+position = Vector2(-96, 55)
+
+[node name="Ball2" parent="Table" instance=ExtResource("1_xsy2t")]
+position = Vector2(96, 55)
+
+[node name="Ball3" parent="Table" instance=ExtResource("1_xsy2t")]
+position = Vector2(0, -111)
 
 [node name="Paws" parent="." instance=ExtResource("2_fy05x")]
 position = Vector2(0, 779)

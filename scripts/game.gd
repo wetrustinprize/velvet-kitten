@@ -20,10 +20,21 @@ func _ready() -> void:
 	clock_enabled = true
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.keycode == KEY_R:
-		reset()
-		get_tree().reload_current_scene()
-		clock_enabled = true
+	if event is InputEventKey:
+		if not event.is_pressed():
+			return
+
+		match event.keycode:
+			KEY_R:
+				reset()
+				get_tree().reload_current_scene()
+				clock_enabled = true
+			KEY_C:
+				for ball in balls.duplicate():
+					ball.explode()
+				balls.clear()
+			KEY_M:
+				Game.add_multiplier(1.0, "cheater!")
 
 func _process(delta: float) -> void:
 	if clock_enabled:
@@ -84,8 +95,7 @@ func check_flying_balls() -> void:
 		if ball in ok_balls:
 			continue
 
-		balls.erase(ball)
-		ball.queue_free()
+		ball.explode()
 		total_deleted += 1
 
 	if total_deleted > 0:

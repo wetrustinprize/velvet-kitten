@@ -82,27 +82,21 @@ func check_neighbors() -> void:
 
 	Game.check_flying_balls()
 
+func explode() -> void:
+	Game.balls.erase(self)
+
+	collision_layer = 0
+	collision_mask = 0
+	animation_player.play("explode")
+	z_index = 0
+
 func handle_default() -> void:
 	var match_line = get_match_line()
 	var match_total = match_line.size()
 
 	if match_line.size() > 2:
 		for ball in match_line:
-			Game.balls.erase(ball)
-
-			ball.collision_layer = 0
-			ball.collision_mask = 0
-			ball.animation_player.play("explode")
-			ball.z_index = 2
-
-			var root = get_tree().root
-			var parent = ball.get_parent()
-			var g_pos = ball.global_position
-
-			parent.remove_child(ball)
-			root.add_child(ball)
-			ball.global_rotation_degrees = 0
-			ball.global_position = g_pos
+			ball.explode()
 
 	match match_total:
 		3:

@@ -197,9 +197,11 @@ _data = {
 }
 
 [node name="Ball" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_wpxwf")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+z_index = 1
 scale = Vector2(0.21, 0.21)
 texture = ExtResource("2_426t8")
 script = SubResource("GDScript_j0mxn")
@@ -216,6 +218,7 @@ build_mode = 1
 polygon = PackedVector2Array(4, 0, 2, 3.46, -2, 3.46, -4, 0, -2, -3.46, 2, -3.46)
 
 [node name="ShapeCast" type="ShapeCast2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_0ya6o")
 target_position = Vector2(0, 0)
 

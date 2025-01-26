@@ -65,7 +65,6 @@ func _on_timeout() -> void:
 	var inverse: bool = beat % 2 == 0
 	
 	if beat == 3:
-		beat = 0
 		hitted = false
 	else:
 		if beat == 2:
@@ -83,7 +82,12 @@ func _on_timeout() -> void:
 		var tween: Tween = get_tree().create_tween()
 		var rot = table.rotation_degrees + 45 * (-1 if inverse else 1)
 		tween.tween_property(table, "rotation_degrees", rot, tween_duration).set_trans(Tween.TRANS_SPRING)
-		beat += 1
+
+	Game.beat_changed.emit(beat, wait_time)
+	beat += 1
+
+	if beat == 4:
+		beat = 0
 
 func _on_music_started() -> void:
 	start()

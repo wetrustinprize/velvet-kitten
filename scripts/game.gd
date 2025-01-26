@@ -3,11 +3,12 @@ extends Node
 signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
 signal countdown_changed(countdown: int)
+signal beat_changed(beat: int, next_beat: float)
 signal game_over()
 
 var multiplier: float = 1.0
 var score: int = 0
-var countdown_seconds: float = 60
+var countdown_seconds: float = 60 * 2
 var countdown: float = 0.0
 var clock_enabled: bool = true
 
@@ -17,6 +18,12 @@ func _ready() -> void:
 	reset()
 
 	clock_enabled = true
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.keycode == KEY_R:
+		reset()
+		get_tree().reload_current_scene()
+		clock_enabled = true
 
 func _process(delta: float) -> void:
 	if clock_enabled:

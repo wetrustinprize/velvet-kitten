@@ -16,7 +16,7 @@ zoom = Vector2(0.7, 0.7)
 script = ExtResource("1_eqe3y")
 
 [node name="Table" type="Node2D" parent="."]
-position = Vector2(-2, -223)
+position = Vector2(-2, -149)
 
 [node name="Stone" parent="Table" instance=ExtResource("1_xsy2t")]
 
@@ -24,7 +24,7 @@ position = Vector2(-2, -223)
 position = Vector2(0, 779)
 
 [node name="Walls" type="StaticBody2D" parent="." groups=["bounce"]]
-position = Vector2(8, -223)
+position = Vector2(8, -149)
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-557, 0)

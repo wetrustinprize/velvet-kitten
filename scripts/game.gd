@@ -2,9 +2,11 @@ extends Node
 
 signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
+signal countdown_changed(countdown: int)
 
 var multiplier: float = 1.0
 var score: int = 0
+var countdown: int = 0
 
 var balls: Array[Ball] = []
 
@@ -18,7 +20,7 @@ func add_multiplier(value: float, reason: String) -> void:
 	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = value })
 
 func add_points(points: int, reason: String) -> void:
-	var sum = int(points * multiplier)
+	var sum = int(points * multiplier) if points > 0 else int(points)
 
 	score += sum
 	score_changed.emit(score, { "reason" = reason, "sum" = sum })
@@ -50,8 +52,7 @@ func check_flying_balls() -> void:
 		total_deleted += 1
 
 	if total_deleted > 0:
-		add_points(total_deleted * 50, "explode " + str(total_deleted))
-
+		add_points(total_deleted * 50, "explode " + str(total_deleted) + "x")
 
 func reset() -> void:
 	multiplier = 1.0

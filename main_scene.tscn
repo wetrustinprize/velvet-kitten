@@ -63,3 +63,4 @@ collision_mask = 0
 
 [connection signal="timeout" from="Rhythm" to="Rhythm" method="_on_timeout"]
 [connection signal="started" from="Music" to="Rhythm" method="_on_music_started"]
+[connection signal="stopped" from="Music" to="Rhythm" method="_on_music_stopped"]

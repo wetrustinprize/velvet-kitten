@@ -41,6 +41,7 @@ func _input(event: InputEvent) -> void:
 
 			if not ok:
 				Game.reset_multiplier("out of bounds")
+				Game.add_points(-500, "out of bounds")
 			else:
 				Game.add_multiplier(0.05, "hit")
 			hitted = true
@@ -79,3 +80,6 @@ func _on_timeout() -> void:
 
 func _on_music_started() -> void:
 	start()
+
+func _on_music_stopped() -> void:
+	stop()

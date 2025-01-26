@@ -31,7 +31,7 @@ func update_score(score: int, info: Dictionary):
 	if info.is_empty():
 		return
 
-	_create_style_reason(info["reason"], ("+" if info["sum"] > 0 else "-") + str(info["sum"]) + "pts")
+	_create_style_reason(info["reason"], ("+" if info["sum"] > 0 else "") + str(info["sum"]) + "pts")
 
 func _create_style_reason(reason: String, value: String) -> void:
 	var style_reason_instance = style_reason.instantiate()

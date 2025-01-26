@@ -51,10 +51,8 @@ func get_match_line(ignore: Array[Ball] = []) -> Array[Ball]:
 
 		match_line.append(neighbor)
 
-		var new_ignore: Array[Ball] = ignore.duplicate()
-		new_ignore.append(neighbor)
-
-		match_line.append_array(neighbor.get_match_line(new_ignore))
+		ignore.append(neighbor)
+		match_line.append_array(neighbor.get_match_line(ignore))
 
 	# remove duplicates
 	for ball in match_line:

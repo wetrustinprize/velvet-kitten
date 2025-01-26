@@ -81,6 +81,8 @@ func check_neighbors() -> int:
 
 	if total >= 3 or total_fly > 0:
 		FmodServer.play_one_shot("event:/bubble-pop")
+	else:
+		FmodServer.play_one_shot("event:/bubble-connect")
 
 	return total
 
@@ -105,10 +107,10 @@ func handle_default() -> int:
 			Game.add_points(300, "triplet")
 			Game.add_multiplier(0.1, "triplet")
 		4:
-			Game.add_points(400, "quadruplet")
+			Game.add_points(500, "quadruplet")
 			Game.add_multiplier(0.2, "quadruplet")
 		5:
-			Game.add_points(700, "quintuplet")
+			Game.add_points(1000, "quintuplet")
 			Game.add_multiplier(0.3, "quintuplet")
 
 	return match_total

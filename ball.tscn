@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ya6o"]
-radius = 100.0
+radius = 71.29
 
 [node name="Ball" type="CharacterBody2D"]
 script = ExtResource("1_wpxwf")

@@ -27,6 +27,9 @@ func get_neighbors() -> Array[Ball]:
 	for i in shape_cast.get_collision_count():
 		var neighbor = shape_cast.get_collider(i)
 
+		if neighbor.is_queued_for_deletion():
+			continue
+
 		if neighbor is Ball:
 			neighbors.append(neighbor)
 
@@ -63,6 +66,8 @@ func check_neighbors() -> void:
 	match info.type:
 		_:
 			handle_default()
+
+	Game.check_flying_balls()
 
 func handle_default() -> void:
 	var match_line = get_match_line()

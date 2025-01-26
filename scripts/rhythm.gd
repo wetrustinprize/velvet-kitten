@@ -41,29 +41,36 @@ func _input(event: InputEvent) -> void:
 
 		paws.hit()
 
+func _switch_ball() -> void:
+	var old_ball = paws.ball_info
+	paws._update_ball_info(hold_ball_info)
+
+	hold_ball_info = old_ball
+	hold_ball.update_info(hold_ball_info)
+
 func _on_timeout() -> void:
 	var inverse: bool = beat % 2 == 0
 	
 	if beat == 3:
 		beat = 0
-
-		if not hitted:
-			var old_ball = paws.ball_info
-			paws._update_ball_info(hold_ball_info)
-			hold_ball_info = old_ball
-
-		hold_ball.update_info(hold_ball_info)
 		hitted = false
 	else:
 		if beat == 2:
-			get_tree().create_timer(wait_time - buffer_time).timeout.connect(func(): can_hit = true)
-			get_tree().create_timer(wait_time + buffer_time).timeout.connect(func(): can_hit = false)
+			var pre_buffer = func():
+				can_hit = true
+			get_tree().create_timer(wait_time - buffer_time).timeout.connect(pre_buffer)
+			
+			var after_buffer = func():
+				can_hit = false
+
+				if not hitted:
+					_switch_ball()
+			get_tree().create_timer(wait_time + buffer_time).timeout.connect(after_buffer)
 
 		var tween: Tween = get_tree().create_tween()
 		var rot = table.rotation_degrees + 45 * (-1 if inverse else 1)
 		tween.tween_property(table, "rotation_degrees", rot, tween_duration).set_trans(Tween.TRANS_SPRING)
 		beat += 1
-		
 
 func _on_music_started() -> void:
 	start()

@@ -21,27 +21,26 @@ func add_points(points: int, reason: String) -> void:
 	score += points * multiplier
 	score_changed.emit(score, { "reason" = reason, "sum" = points })
 
-func _process(_delta: float) -> void:
-	check_flying_balls()
-
 func check_flying_balls() -> void:
 	var stone = get_tree().root.get_node("Main Scene/Table/Stone")
 
-	var ignores: Array[Ball] = [ stone ]
-	var check: Array[Ball] = stone.get_neighbors()
+	var ok_balls: Array[Ball] = stone.get_neighbors()
+	var check_balls: Array[Ball] = ok_balls.duplicate()
 
-	while check.size() > 0:
-		var ball = check.pop_front()
+	while check_balls.size() > 0:
+		var ball = check_balls.pop_front()
+		var neighbors = ball.get_neighbors()
 
-		if ball in ignores:
-			continue
+		for neighbor in neighbors:
+			if neighbor not in ok_balls:
+				check_balls.append(neighbor)
+			ok_balls.append(neighbor)
 
-		ignores.append(ball)
-		check.append_array(ball.get_neighbors())
+		check_balls.erase(ball)
 
 	var total_deleted: int = 0
-	for ball in balls:
-		if ball in ignores:
+	for ball in balls.duplicate():
+		if ball in ok_balls:
 			continue
 
 		balls.erase(ball)
@@ -49,7 +48,7 @@ func check_flying_balls() -> void:
 		total_deleted += 1
 
 	if total_deleted > 0:
-		add_points(total_deleted * 50, "explode")
+		add_points(total_deleted * 50, "explode " + str(total_deleted))
 
 
 func reset() -> void:

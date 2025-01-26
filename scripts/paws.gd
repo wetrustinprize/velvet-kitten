@@ -13,6 +13,7 @@ class_name Paws
 
 @onready var ball_scene: PackedScene = preload("res://ball.tscn")
 @onready var ball_trail_scene: PackedScene = preload("res://ball_trail.tscn")
+@onready var camera_shake_preset: ShakerPreset2D = preload("res://camera_shake.tres")
 
 @onready var ball_info: BallInfo = BallInfo.random()
 
@@ -62,7 +63,8 @@ func hit() -> bool:
 	new_ball.animation_player.play("spawn")
 	new_ball.check_neighbors()
 
-	get_viewport().get_camera_2d().add_trauma(0.1)
+	var camera = get_viewport().get_camera_2d()
+	Shaker.shake_by_preset(camera_shake_preset, camera, 0.1)
 
 	var ball_trail = ball_trail_scene.instantiate()
 

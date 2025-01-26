@@ -37,6 +37,7 @@ config/icon="res://icon.png"
 
 FmodManager="*res://addons/fmod/FmodManager.gd"
 Game="*res://scripts/game.gd"
+Shaker="*res://addons/shaker/src/Shaker.gd"
 
 [display]
 
@@ -48,7 +49,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/shaker/plugin.cfg")
 
 [global_group]
 

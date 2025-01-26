@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3b2nlibw3spp"]
+[gd_scene load_steps=14 format=3 uid="uid://d3b2nlibw3spp"]
 
-[ext_resource type="Script" path="res://scripts/camera.gd" id="1_eqe3y"]
 [ext_resource type="PackedScene" uid="uid://beh5rqjujuq1k" path="res://ball.tscn" id="1_xsy2t"]
 [ext_resource type="Texture2D" uid="uid://cf6uhc6q5i7y6" path="res://graphics/Mask group.png" id="2_e0bhn"]
 [ext_resource type="PackedScene" uid="uid://fexlo01o2syd" path="res://paws.tscn" id="2_fy05x"]
@@ -32,7 +31,6 @@ size = Vector2(41, 1082)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)
-script = ExtResource("1_eqe3y")
 
 [node name="Table" type="Node2D" parent="." node_paths=PackedStringArray("balls")]
 position = Vector2(-2, -149)

@@ -78,6 +78,7 @@ shape = SubResource("RectangleShape2D_opmb6")
 [node name="Rhythm" type="Timer" parent="."]
 wait_time = 0.429
 script = ExtResource("4_1ox6f")
+buffer_time = null
 
 [node name="Music" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/music"

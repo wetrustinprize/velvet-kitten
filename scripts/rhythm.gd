@@ -4,6 +4,7 @@ extends Timer
 
 @onready var table: Node2D = get_parent().get_node("Table")
 @onready var paws: Paws = get_parent().get_node("Paws")
+@onready var miss_shake_preset: ShakerPreset2D = preload("res://camera_miss_shake.tres")
 
 var disable_hit: bool = false
 var can_hit: bool = false
@@ -45,6 +46,8 @@ func _input(event: InputEvent) -> void:
 		
 		if not can_hit:
 			Game.reset_multiplier("miss")
+			var camera = get_viewport().get_camera_2d()
+			Shaker.shake_by_preset(miss_shake_preset, camera, 0.1)
 			paws.update_ball_info(BallInfo.random())
 		else:
 			var ok = paws.hit()

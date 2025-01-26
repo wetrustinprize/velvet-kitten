@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_10skj"]
 script = ExtResource("2_mm56p")
 seed = 0
-amplitude = Vector2(22, 8)
+amplitude = Vector2(80, 80)
 offset = Vector2(0, 0)
 BlendingMode = 0
 fade_in = 0.0

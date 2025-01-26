@@ -35,15 +35,20 @@ func _input(event: InputEvent) -> void:
 		
 		if not can_hit:
 			Game.reset_multiplier("miss")
+			paws.update_ball_info(BallInfo.random())
 		else:
-			Game.add_multiplier(0.05, "hit")
+			var ok = paws.hit()
+
+			if not ok:
+				Game.reset_multiplier("out of bounds")
+			else:
+				Game.add_multiplier(0.05, "hit")
 			hitted = true
 
-		paws.hit()
 
 func _switch_ball() -> void:
 	var old_ball = paws.ball_info
-	paws._update_ball_info(hold_ball_info)
+	paws.update_ball_info(hold_ball_info)
 
 	hold_ball_info = old_ball
 	hold_ball.update_info(hold_ball_info)

@@ -19,6 +19,10 @@ func update_multiplier(multiplier: float, info: Dictionary):
 	if info.is_empty():
 		return
 
+	if info["reason"] == "miss" or info["reason"] == "out of bounds":
+		_create_style_reason(info["reason"], "reset")
+		return
+
 	_create_style_reason(info["reason"], "+" + str(info["sum"]) + "x")
 	
 func update_score(score: int, info: Dictionary):

@@ -40,6 +40,7 @@ func get_match_line(ignore: Array[Ball] = []) -> Array[Ball]:
 	var match_line: Array[Ball] = []
 
 	match_line.append(self)
+	ignore.append(self)
 
 	for neighbor in get_neighbors():
 		if neighbor.info.type != info.type:
@@ -51,7 +52,7 @@ func get_match_line(ignore: Array[Ball] = []) -> Array[Ball]:
 		match_line.append(neighbor)
 
 		var new_ignore: Array[Ball] = ignore.duplicate()
-		new_ignore.append(self)
+		new_ignore.append(neighbor)
 
 		match_line.append_array(neighbor.get_match_line(new_ignore))
 

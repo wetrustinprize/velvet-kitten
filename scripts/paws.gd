@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	line.add_point(raycast_origin.position)
 	calculate_hit(raycast_origin.position, initial_target_position)
 
-func _update_ball_info(new_ball_info: BallInfo) -> void:
+func update_ball_info(new_ball_info: BallInfo) -> void:
 	ball_info = new_ball_info
 	ball.update_info(ball_info)
 
@@ -59,16 +59,15 @@ func hit() -> bool:
 	pos += result.hit_normal.normalized() * 110
 
 	new_ball.position = table.to_local(pos)
-	_update_ball_info(BallInfo.random())
+	update_ball_info(BallInfo.random())
 
 	var new_ball_pos = abs(new_ball.position.y) + abs(new_ball.position.x)
-	print(new_ball_pos)
 	if new_ball_pos > 530:
 		new_ball.queue_free()
 		return false
 
 	Game.balls.append(new_ball)
-	# new_ball.check_neighbors()
+	new_ball.check_neighbors()
 
 	return true
 

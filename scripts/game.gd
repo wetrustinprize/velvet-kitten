@@ -18,8 +18,10 @@ func add_multiplier(value: float, reason: String) -> void:
 	multiplier_changed.emit(multiplier, { "reason" = reason, "sum" = value })
 
 func add_points(points: int, reason: String) -> void:
-	score += points * multiplier
-	score_changed.emit(score, { "reason" = reason, "sum" = points })
+	var sum = int(points * multiplier)
+
+	score += sum
+	score_changed.emit(score, { "reason" = reason, "sum" = sum })
 
 func check_flying_balls() -> void:
 	var stone = get_tree().root.get_node("Main Scene/Table/Stone")

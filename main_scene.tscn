@@ -49,6 +49,7 @@ script = ExtResource("4_1ox6f")
 [node name="Music" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/Music"
 event_guid = "{c05a91cf-19a9-4df0-a950-173a277d6574}"
+autoplay = true
 
 [node name="BankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank"]

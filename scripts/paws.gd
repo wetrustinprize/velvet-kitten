@@ -7,6 +7,7 @@ class_name Paws
 
 @onready var ball: Ball = $Ball
 @onready var line: Line2D = $Line
+@onready var hit_indicator: Sprite2D = $HitIndicator
 @onready var raycast_origin: Node2D = $RayCastOrigin
 @onready var raycast: RayCast2D = $RayCastOrigin/RayCast2D
 @onready var initial_target_position: Vector2 = Vector2.ZERO
@@ -95,6 +96,8 @@ func hit() -> bool:
 
 func calculate_hit(new_position: Vector2, target_position: Vector2, current_bounces: int = 0) -> Dictionary:
 	if current_bounces >= raycast_max_bounces + 1:
+		line.modulate = Color.RED
+		hit_indicator.visible = false
 		return {}
 
 	raycast.position = new_position
@@ -114,10 +117,16 @@ func calculate_hit(new_position: Vector2, target_position: Vector2, current_boun
 				var new_hit_position = hit_position + (hit_normal * raycast_max_distance)
 				return calculate_hit(raycast_origin.to_local(hit_position), raycast.to_local(new_hit_position), current_bounces + 1)
 			else:
+				line.modulate = Color(1.0, 1.0, 1.0, 0.5)
+				hit_indicator.visible = true
+				hit_indicator.position = to_local(hit_position)
+
 				return {
 					"collider": collider,
 					"hit_position": hit_position,
 					"hit_normal": hit_normal
 				}
 
+	line.modulate = Color.RED
+	hit_indicator.visible = false
 	return {}

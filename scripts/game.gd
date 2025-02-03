@@ -3,6 +3,7 @@ extends Node
 signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
 signal countdown_changed(countdown: int)
+signal next_ball_changed(next_ball: BallInfo)
 signal beat_changed(beat: int, next_beat: float)
 signal scoreboard_updated(scoreboard: Array)
 signal game_over()
@@ -14,6 +15,7 @@ var countdown: float = 0.0
 var elapsed_seconds: float = 0.0
 var clock_enabled: bool = false
 
+var next_ball_info: BallInfo = BallInfo.random()
 var balls: Array[Ball] = []
 
 func _ready() -> void:
@@ -45,6 +47,10 @@ func _process(delta: float) -> void:
 		if countdown <= 0.0:
 			clock_enabled = false
 			game_over.emit()
+
+func next_ball() -> void:
+	next_ball_info = BallInfo.random()
+	next_ball_changed.emit(next_ball_info)
 
 func halve_countdown() -> void:
 	countdown /= 2

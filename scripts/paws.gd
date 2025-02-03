@@ -67,7 +67,8 @@ func hit() -> bool:
 	pos += result.hit_normal.normalized() * 110
 
 	new_ball.position = table.to_local(pos)
-	update_ball_info(BallInfo.random())
+	update_ball_info(Game.next_ball_info)
+	Game.next_ball()
 
 	var new_ball_pos = abs(new_ball.position.y) + abs(new_ball.position.x)
 	if new_ball_pos > 530:

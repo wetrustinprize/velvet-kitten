@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://5niq41d6bx4v"]
+
+[ext_resource type="FontFile" uid="uid://bxx8k26vj4afs" path="res://fonts/Aldrich-Regular.ttf" id="1_uov5h"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_uov5h")
+font_size = 32
+font_color = Color(0.729412, 0.164706, 0.313726, 1)

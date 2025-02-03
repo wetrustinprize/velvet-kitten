@@ -1,7 +1,7 @@
 extends Control
 
 @onready var counter: Label = $Counter
-@onready var scoreboard: Scoreboard = get_parent().get_node("ScoreboardText")
+@onready var scoreboard: Scoreboard = get_parent().get_node("Scoreboard")
 
 var hide_tween: bool = false
 

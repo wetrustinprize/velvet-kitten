@@ -1,5 +1,6 @@
 extends Node
 
+signal game_started()
 signal multiplier_changed(multiplier: float, info: Dictionary)
 signal score_changed(score: int, info: Dictionary)
 signal countdown_changed(countdown: int)
@@ -25,6 +26,7 @@ func restart_game() -> void:
 	reset()
 	get_tree().reload_current_scene()
 	clock_enabled = false
+	game_started.emit()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
